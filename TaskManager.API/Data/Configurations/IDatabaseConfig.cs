@@ -2,8 +2,9 @@
 {
     public interface IDatabaseConfig
     {
-        string DatabaseName { get; set; }
+        string ConnectionStringSQL { get; set; }
+        string ConnectionStringMongo { get; set; }
+        
 
-        string ConnectionString { get; set; }
     }
 }

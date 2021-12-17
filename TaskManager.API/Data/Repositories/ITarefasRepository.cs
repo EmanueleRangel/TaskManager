@@ -6,12 +6,12 @@ namespace TaskManager.API.Data.Repositories
     {
         void Adicionar(Tarefa tarefa);
 
-        void Atualizar(string id, Tarefa tarefaAtualizada);
+        void Atualizar(Tarefa tarefaAtualizada);
 
         IEnumerable<Tarefa> Buscar();
 
         Tarefa Buscar(string id);
 
-        void Remover(string id);
+        void Remover(Tarefa tarefa);
     }
 }

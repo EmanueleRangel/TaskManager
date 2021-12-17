@@ -4,16 +4,19 @@ using TaskManager.API.Models;
 
 namespace TaskManager.API.Data.Repositories
 {
-    public class TarefasRepositories : ITarefasRepository
+    public class TarefasRepositoryMongo : ITarefasRepository
     {
         //configuraçao das tarefas no mongo
         private readonly IMongoCollection<Tarefa> _tarefas;
 
-        public TarefasRepositories(IDatabaseConfig databaseConfig )
+        public TarefasRepositoryMongo(IDatabaseConfig databaseConfig )
         {
            //iniciaçao do objeto que recebe a collection
-            var client = new MongoClient(databaseConfig.ConnectionString);
-            var database = client.GetDatabase(databaseConfig.DatabaseName);
+            var client = new MongoClient(databaseConfig.ConnectionStringMongo);
+
+            var databaseName = client.ListDatabaseNames().FirstOrDefault(); 
+            
+            var database = client.GetDatabase(databaseName);
 
             _tarefas = database.GetCollection<Tarefa>("tarefas");
         }
@@ -23,9 +26,9 @@ namespace TaskManager.API.Data.Repositories
             _tarefas.InsertOne(tarefa);
         }
 
-        public void Atualizar(string id, Tarefa tarefaAtualizada)
+        public void Atualizar(Tarefa tarefaAtualizada)
         {
-            _tarefas.ReplaceOne(tarefa => tarefa.Id == id, tarefaAtualizada);
+            _tarefas.ReplaceOne(tarefa => tarefa.Id == tarefaAtualizada.Id, tarefaAtualizada);
         }
 
         public IEnumerable<Tarefa> Buscar()
@@ -39,9 +42,9 @@ namespace TaskManager.API.Data.Repositories
             return _tarefas.Find(tarefa => tarefa.Id == id).FirstOrDefault();
         }
 
-        public void Remover(string id)
+        public void Remover(Tarefa tarefa)
         {
-            _tarefas.DeleteOne(tarefa => tarefa.Id == id);
+            _tarefas.DeleteOne(t => t.Id == tarefa.Id);
         }
     }
 }

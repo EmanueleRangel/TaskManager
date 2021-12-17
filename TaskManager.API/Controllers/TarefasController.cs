@@ -61,7 +61,7 @@ namespace TaskManager.API.Controllers
 
             tarefa.AtualizarTarefa(tarefaAtualizada.Nome, tarefaAtualizada.Detalhes, tarefaAtualizada.Concluido);
 
-            _tarefasRepository.Atualizar(id, tarefa);
+            _tarefasRepository.Atualizar(tarefa);
 
             return Ok(tarefa);
         }
@@ -75,7 +75,7 @@ namespace TaskManager.API.Controllers
             if (tarefa == null)
                 return NotFound();
 
-            _tarefasRepository.Remover(id);
+            _tarefasRepository.Remover(tarefa);
 
             return NoContent();
         }

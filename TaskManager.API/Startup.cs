@@ -17,12 +17,12 @@ namespace TaskManager.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<DatabaseConfig>(Configuration.GetSection(nameof(DatabaseConfig)));
+            
             //instância unica da configuraçao da base de dados
-            services.AddSingleton<IDatabaseConfig>(sp => sp.GetRequiredService<IOptions<DatabaseConfig>>().Value);
+            services.AddSingleton<IDatabaseConfig>(Configuration.GetSection(nameof(DatabaseConfig)).Get<DatabaseConfig>());
 
             //injeçao de dependencia 
-            services.AddSingleton<ITarefasRepository, TarefasRepositories>();
+            services.AddSingleton<ITarefasRepository, TarefasRepositorySQL>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
