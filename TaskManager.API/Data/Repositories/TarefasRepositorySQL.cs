@@ -10,8 +10,7 @@ namespace TaskManager.API.Data.Repositories
     public class TarefasRepositorySQL : ITarefasRepository, IDisposable
     {
         private SqlConnection _connection { get; set; }
-
-        
+ 
         public TarefasRepositorySQL (IDatabaseConfig configuration)
         {
             _connection = new SqlConnection(configuration.ConnectionStringSQL);

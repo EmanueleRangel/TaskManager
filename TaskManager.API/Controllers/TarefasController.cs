@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskManager.API.Attributes;
 using TaskManager.API.Data.Repositories;
 using TaskManager.API.Models;
 using TaskManager.API.Models.InputModels;
@@ -41,6 +42,7 @@ namespace TaskManager.API.Controllers
 
         // POST api/tarefas
         [HttpPost]
+        [ApiKey]
         public IActionResult Post([FromBody] TarefaInputModel novaTarefa)
         {
             var tarefa = new Tarefa(novaTarefa.Nome, novaTarefa.Detalhes);
