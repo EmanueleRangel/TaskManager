@@ -22,7 +22,7 @@ namespace TaskManager.API
             services.AddSingleton<IDatabaseConfig>(Configuration.GetSection(nameof(DatabaseConfig)).Get<DatabaseConfig>());
 
             //injeçao de dependencia 
-            services.AddSingleton<ITarefasRepository, TarefasRepositorySQL>();
+            services.AddSingleton<ITarefasRepository, TarefasRepositoryMongo>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

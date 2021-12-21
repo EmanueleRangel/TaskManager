@@ -30,7 +30,7 @@ namespace TaskManager.API.Controllers
 
         // GET api/tarefas/{id}
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public IActionResult Get([FromRoute] string id)
         {
             var tarefa = _tarefasRepository.Buscar(id);
 
@@ -54,7 +54,7 @@ namespace TaskManager.API.Controllers
 
         // PUT api/tarefas/{id}
         [HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody] TarefaInputModel tarefaAtualizada)
+        public IActionResult Put([FromRoute] string id, [FromBody] TarefaInputModel tarefaAtualizada)
         {
             var tarefa = _tarefasRepository.Buscar(id);
 
@@ -70,7 +70,7 @@ namespace TaskManager.API.Controllers
 
         // DELETE api/tarefas/{id}
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public IActionResult Delete([FromRoute] string id)
         {
             var tarefa = _tarefasRepository.Buscar(id);
 

@@ -1,14 +1,13 @@
 ﻿
 using Dapper.Contrib.Extensions;
-
+using TaskManager.API.Models.Persist;
 
 namespace TaskManager.API.Models
 {
     [Table("Tarefa")]
-    public class Tarefa
+    public class Tarefa : Entity
     {
-        [ExplicitKey]
-        public string Id { get; private set; }
+        
         public string Nome { get; private set; }
         public string Detalhes { get; private set; }
         public bool Concluido { get; private set; }
@@ -36,5 +35,7 @@ namespace TaskManager.API.Models
             DataConclusao = null;
 
         }
+
+
     }
 }

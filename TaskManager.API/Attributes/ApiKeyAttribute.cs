@@ -8,7 +8,7 @@ namespace TaskManager.API.Attributes
     public class ApiKeyAttribute : Attribute, IAsyncActionFilter
     {
         private const string ApiKeyName = "api_key";
-        private const string ApiKey = "70c77039-2059-45c8-98a6-936cec7b3cbd";
+
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             if (!context.HttpContext.Request.Headers.TryGetValue(ApiKeyName, out var apiKey))
@@ -21,7 +21,9 @@ namespace TaskManager.API.Attributes
                 return;
             }
 
-            if (!ApiKey.Equals(apiKey))
+            var configuration = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+
+            if (configuration.GetValue<string>("ApiKey") != apiKey)
             {
                 context.Result = new ContentResult()
                 {

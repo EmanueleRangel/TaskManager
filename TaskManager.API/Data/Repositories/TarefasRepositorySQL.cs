@@ -1,52 +1,37 @@
-﻿using Microsoft.Data.SqlClient;
-using Dapper;
-using TaskManager.API.Data.Configurations;
+﻿using TaskManager.API.Data.Configurations;
 using TaskManager.API.Models;
-using Dapper.Contrib.Extensions;
+
 
 namespace TaskManager.API.Data.Repositories
 {
     
-    public class TarefasRepositorySQL : ITarefasRepository, IDisposable
+    public class TarefasRepositorySQL : RepositorySQL, ITarefasRepository
     {
-        private SqlConnection _connection { get; set; }
- 
-        public TarefasRepositorySQL (IDatabaseConfig configuration)
-        {
-            _connection = new SqlConnection(configuration.ConnectionStringSQL);
-            _connection.Open();
-        }
+        public TarefasRepositorySQL(IDatabaseConfig configuration) : base(configuration){}
 
-      
         public void Adicionar(Tarefa tarefa)
         {
-            _connection.Insert(tarefa);
+            base.Adicionar<Tarefa>(tarefa);
         }
 
         public void Atualizar(Tarefa tarefaAtualizada)
         {
-            _connection.Update(tarefaAtualizada);
-        }
-
-        public IEnumerable<Tarefa> Buscar()
-        {
-            return _connection.GetAll<Tarefa>();
-        }
-
-        public Tarefa Buscar(string id)
-        {
-            Tarefa tarefa = _connection.Get<Tarefa>(id);
-            return tarefa;
+            base.Atualizar<Tarefa>(tarefaAtualizada);
         }
 
         public void Remover(Tarefa tarefa)
         {
-            _connection.Delete(tarefa);
+            base.Remover<Tarefa>(tarefa);
         }
 
-        public void Dispose()
+        IEnumerable<Tarefa> ITarefasRepository.Buscar()
         {
-            _connection.Close();
+           return base.Buscar<Tarefa>();
+        }
+
+        Tarefa ITarefasRepository.Buscar(string id)
+        {
+            return base.Buscar<Tarefa>(id);
         }
     }
 }
