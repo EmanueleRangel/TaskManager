@@ -22,7 +22,8 @@ namespace TaskManager.API
             services.AddSingleton<IDatabaseConfig>(Configuration.GetSection(nameof(DatabaseConfig)).Get<DatabaseConfig>());
 
             //injeçao de dependencia 
-            services.AddSingleton<ITarefasRepository, TarefasRepositoryMongo>();
+            services.AddSingleton<ITarefasRepository, TarefasRepositorySQL>();
+            services.AddSingleton<IUsuariosRepository, UsuariosRepositorySQL>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

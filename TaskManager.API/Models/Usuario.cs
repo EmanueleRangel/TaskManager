@@ -9,5 +9,17 @@ namespace TaskManager.API.Models
         public string Nome { get; set; }
         public string Senha { get; set; }
         public string Role { get; set; }
+
+        public Usuario() {}
+
+        public Usuario(string nome, string senha, string role)
+        {
+            Id = Guid.NewGuid().ToString();
+            Nome = nome;
+            Senha = senha;
+            Role = role;
+        }
     }
+
+
 }
