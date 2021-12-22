@@ -1,6 +1,9 @@
 ﻿
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 using TaskManager.API.Data.Configurations;
 using TaskManager.API.Data.Repositories;
 
@@ -17,13 +20,14 @@ namespace TaskManager.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             //instância unica da configuraçao da base de dados
             services.AddSingleton<IDatabaseConfig>(Configuration.GetSection(nameof(DatabaseConfig)).Get<DatabaseConfig>());
 
             //injeçao de dependencia 
             services.AddSingleton<ITarefasRepository, TarefasRepositoryMongo>();
             services.AddSingleton<IUsuariosRepository, UsuariosRepositoryMongo>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -40,7 +44,27 @@ namespace TaskManager.API
                 .WithOrigins("http://localhost:4200");
             }));
 
+            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
         }
+    
 
         public void Configure(WebApplication app, IWebHostEnvironment environment)
         {

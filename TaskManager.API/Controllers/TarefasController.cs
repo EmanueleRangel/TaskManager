@@ -19,8 +19,8 @@ namespace TaskManager.API.Controllers
         {
             _tarefasRepository = tarefasRepository;
         }
-
-        // GET api/tarefas
+        
+            // GET api/tarefas
         [HttpGet]
         public IActionResult Get()
         {

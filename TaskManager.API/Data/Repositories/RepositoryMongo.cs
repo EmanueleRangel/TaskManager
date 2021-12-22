@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 using TaskManager.API.Data.Configurations;
-
+using TaskManager.API.Models;
 
 namespace TaskManager.API.Data.Repositories
 {
@@ -16,7 +16,7 @@ namespace TaskManager.API.Data.Repositories
 
             var database = client.GetDatabase(databaseName);
 
-            _connection = database.GetCollection<T>(nameof(T));
+            _connection = database.GetCollection<T>(typeof(T).Name);
         }
 
         public void Adicionar (T entity) 
