@@ -6,14 +6,13 @@ namespace TaskManager.API.Data.Repositories
 {
     public abstract class RepositoryMongo<T>
     {
+        private const string databaseName = "taskManager";
         private readonly IMongoCollection<T> _connection;
 
         public RepositoryMongo(IDatabaseConfig configuration)
         {
 
             var client = new MongoClient(configuration.ConnectionStringMongo);
-
-            var databaseName = client.ListDatabaseNames().FirstOrDefault();
 
             var database = client.GetDatabase(databaseName);
 
