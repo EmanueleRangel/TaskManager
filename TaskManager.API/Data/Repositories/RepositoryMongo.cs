@@ -7,7 +7,7 @@ namespace TaskManager.API.Data.Repositories
     public abstract class RepositoryMongo<T>
     {
         private const string databaseName = "taskManager";
-        private readonly IMongoCollection<T> _connection;
+        protected readonly IMongoCollection<T> _connection;
 
         public RepositoryMongo(IDatabaseConfig configuration)
         {
@@ -18,6 +18,7 @@ namespace TaskManager.API.Data.Repositories
 
             _connection = database.GetCollection<T>(typeof(T).Name);
         }
+
 
         public void Adicionar (T entity) 
         {
@@ -41,6 +42,7 @@ namespace TaskManager.API.Data.Repositories
             var filter = Builders<T>.Filter.Eq("Id", id);
             return _connection.Find(filter).FirstOrDefault();
         }
+
 
         public void Remover(string id)
         {

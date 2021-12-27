@@ -1,4 +1,5 @@
-﻿using TaskManager.API.Data.Configurations;
+﻿using MongoDB.Driver;
+using TaskManager.API.Data.Configurations;
 using TaskManager.API.Models;
 
 namespace TaskManager.API.Data.Repositories
@@ -11,6 +12,12 @@ namespace TaskManager.API.Data.Repositories
         {
             base.Adicionar(usuario);
         }
+
+        public Usuario BuscarUsuarioPorNome(string nome)
+        {
+            return ConsultaPorNome(nome);
+        }
+
 
         public void Remover(Usuario usuario)
         {
@@ -25,6 +32,12 @@ namespace TaskManager.API.Data.Repositories
         Usuario IUsuariosRepository.Buscar(string id)
         {
             return base.Buscar(id);
+        }
+
+        private Usuario ConsultaPorNome(string nome)
+        {
+            var filter = Builders<Usuario>.Filter.Eq("Nome", nome);
+            return _connection.Find(filter).FirstOrDefault();
         }
     }
 }

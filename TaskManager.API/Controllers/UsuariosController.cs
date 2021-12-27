@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TaskManager.API.Attributes;
 using TaskManager.API.Data.Repositories;
 using TaskManager.API.Models;
 using TaskManager.API.Models.InputModels;
+using TaskManager.API.Services;
 
 namespace TaskManager.API.Controllers
 {
@@ -16,8 +19,31 @@ namespace TaskManager.API.Controllers
             _usuariosRepository = usuariosRepository;
         }
 
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+        public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginInputModel modelo)
+        {
+            var usuario = _usuariosRepository.BuscarUsuarioPorNome(modelo.Nome);
+            
+            if (usuario == null) 
+                return NotFound(new {message = "Usuário ou senha inválidos"});
+
+            var token = TokenService.GenerateToken(usuario);
+
+            usuario.Senha = "";
+
+            return new
+            {
+                usuario = usuario,
+                token = token
+            };
+
+        }
+
         // GET api/usuarios
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Get()
         {
             var usuarios = _usuariosRepository.Buscar();
@@ -26,6 +52,7 @@ namespace TaskManager.API.Controllers
 
         // GET api/usuarios/{id}
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult Get([FromRoute] string id)
         {
             var usuario = _usuariosRepository.Buscar(id);
@@ -38,6 +65,7 @@ namespace TaskManager.API.Controllers
 
         // POST api/usuarios
         [HttpPost]
+        [ApiKey]
         public IActionResult Post([FromBody] UsuarioInputModel novoUsuario)
         {
             var usuario = new Usuario(novoUsuario.Nome, novoUsuario.Senha, novoUsuario.Role);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaskManager.API.Attributes;
 using TaskManager.API.Data.Repositories;
 using TaskManager.API.Models;
@@ -12,16 +13,19 @@ namespace TaskManager.API.Controllers
     {
         //declarando a interface do repositorio
 
-        private ITarefasRepository _tarefasRepository; 
+        private ITarefasRepository _tarefasRepository;
 
         //construtor passando por uma injeçao de dependencia
         public TarefasController(ITarefasRepository tarefasRepository)
         {
             _tarefasRepository = tarefasRepository;
+
         }
         
-            // GET api/tarefas
+
+        // GET api/tarefas
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Get()
         {
             var tarefas = _tarefasRepository.Buscar();
@@ -30,6 +34,7 @@ namespace TaskManager.API.Controllers
 
         // GET api/tarefas/{id}
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult Get([FromRoute] string id)
         {
             var tarefa = _tarefasRepository.Buscar(id);
@@ -42,7 +47,7 @@ namespace TaskManager.API.Controllers
 
         // POST api/tarefas
         [HttpPost]
-        [ApiKey]
+        [Authorize]
         public IActionResult Post([FromBody] TarefaInputModel novaTarefa)
         {
             var tarefa = new Tarefa(novaTarefa.Nome, novaTarefa.Detalhes);
@@ -54,6 +59,7 @@ namespace TaskManager.API.Controllers
 
         // PUT api/tarefas/{id}
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Put([FromRoute] string id, [FromBody] TarefaInputModel tarefaAtualizada)
         {
             var tarefa = _tarefasRepository.Buscar(id);
@@ -70,6 +76,7 @@ namespace TaskManager.API.Controllers
 
         // DELETE api/tarefas/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "gerente")]
         public IActionResult Delete([FromRoute] string id)
         {
             var tarefa = _tarefasRepository.Buscar(id);

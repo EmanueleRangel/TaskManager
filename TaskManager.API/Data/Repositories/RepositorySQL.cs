@@ -7,9 +7,9 @@ namespace TaskManager.API.Data.Repositories
 {
     public abstract class RepositorySQL: IDisposable
     {
-        private SqlConnection _connection { get; set; }
+        protected SqlConnection _connection { get; set; }
 
-        public  RepositorySQL(IDatabaseConfig configuration)
+        public RepositorySQL(IDatabaseConfig configuration)
         {
             _connection = new SqlConnection(configuration.ConnectionStringSQL);
             _connection.Open();
