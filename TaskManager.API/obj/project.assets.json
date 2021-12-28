@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "BCrypt.Net/0.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/BCrypt.Net.dll": {}
+        },
+        "runtime": {
+          "lib/net35/BCrypt.Net.dll": {}
+        }
+      },
       "Dapper/2.0.123": {
         "type": "package",
         "compile": {
@@ -1167,6 +1176,19 @@
     }
   },
   "libraries": {
+    "BCrypt.Net/0.1.0": {
+      "sha512": "sST2w361Dxt9GGMfpOTiK50wXGV64Ybb1hiX3xjEWnhVYZNF43NuySGwADJa7X1R+bA53NsFR+tuDxcYiJeIOA==",
+      "type": "package",
+      "path": "bcrypt.net/0.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bcrypt.net.0.1.0.nupkg.sha512",
+        "bcrypt.net.nuspec",
+        "lib/net35/BCrypt.Net.XML",
+        "lib/net35/BCrypt.Net.dll"
+      ]
+    },
     "Dapper/2.0.123": {
       "sha512": "RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
       "type": "package",
@@ -3074,6 +3096,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BCrypt.Net >= 0.1.0",
       "Dapper >= 2.0.123",
       "Dapper.Contrib >= 2.0.78",
       "Microsoft.AspNetCore.Authentication >= 2.2.0",
@@ -3128,6 +3151,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "BCrypt.Net": {
+            "target": "Package",
+            "version": "[0.1.0, )"
+          },
           "Dapper": {
             "target": "Package",
             "version": "[2.0.123, )"
@@ -3184,5 +3211,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'BCrypt.Net 0.1.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' em vez da estrutura de destino do projeto 'net6.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

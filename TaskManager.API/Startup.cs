@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -17,6 +18,7 @@ namespace TaskManager.API
 
         }
         public IConfiguration Configuration { get; }
+        public object UIFramework { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -25,8 +27,8 @@ namespace TaskManager.API
             services.AddSingleton<IDatabaseConfig>(Configuration.GetSection(nameof(DatabaseConfig)).Get<DatabaseConfig>());
 
             //injeçao de dependencia 
-            services.AddSingleton<ITarefasRepository, TarefasRepositoryMongo>();
-            services.AddSingleton<IUsuariosRepository, UsuariosRepositoryMongo>();
+            services.AddSingleton<ITarefasRepository, TarefasRepositorySQL>();
+            services.AddSingleton<IUsuariosRepository, UsuariosRepositorySQL>();
 
 
             services.AddControllers();
@@ -62,9 +64,8 @@ namespace TaskManager.API
                         ValidateAudience = false
                     };
                 });
-
         }
-    
+
 
         public void Configure(WebApplication app, IWebHostEnvironment environment)
         {

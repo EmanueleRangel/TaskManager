@@ -25,8 +25,10 @@ namespace TaskManager.API.Controllers
         public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginInputModel modelo)
         {
             var usuario = _usuariosRepository.BuscarUsuarioPorNome(modelo.Nome);
+
+            bool isValidPassword = BCrypt.Net.BCrypt.Verify(modelo.Senha, usuario.Senha);
             
-            if (usuario == null) 
+            if (!isValidPassword) 
                 return NotFound(new {message = "Usuário ou senha inválidos"});
 
             var token = TokenService.GenerateToken(usuario);
@@ -68,6 +70,7 @@ namespace TaskManager.API.Controllers
         [ApiKey]
         public IActionResult Post([FromBody] UsuarioInputModel novoUsuario)
         {
+            novoUsuario.Senha = BCrypt.Net.BCrypt.HashPassword(novoUsuario.Senha);
             var usuario = new Usuario(novoUsuario.Nome, novoUsuario.Senha, novoUsuario.Role);
 
             _usuariosRepository.Adicionar(usuario);

@@ -156,3 +156,4 @@ C:\Users\Rangel\Documents\GitHub\TaskManager\TaskManager.API\obj\Debug\net6.0\Ta
 C:\Users\Rangel\Documents\GitHub\TaskManager\TaskManager.API\obj\Debug\net6.0\ref\TaskManager.API.dll
 C:\Users\Rangel\Documents\GitHub\TaskManager\TaskManager.API\obj\Debug\net6.0\TaskManager.API.pdb
 C:\Users\Rangel\Documents\GitHub\TaskManager\TaskManager.API\obj\Debug\net6.0\TaskManager.API.genruntimeconfig.cache
+C:\Users\Rangel\Documents\GitHub\TaskManager\TaskManager.API\bin\Debug\net6.0\BCrypt.Net.dll
