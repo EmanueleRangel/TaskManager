@@ -26,9 +26,9 @@ namespace TaskManager.API.Controllers
         {
             var usuario = _usuariosRepository.BuscarUsuarioPorNome(modelo.Nome);
 
-            bool isValidPassword = BCrypt.Net.BCrypt.Verify(modelo.Senha, usuario.Senha);
+            bool senhaValida = BCrypt.Net.BCrypt.Verify(modelo.Senha, usuario.Senha);
             
-            if (!isValidPassword) 
+            if (!senhaValida) 
                 return NotFound(new {message = "Usuário ou senha inválidos"});
 
             var token = TokenService.GenerateToken(usuario);
