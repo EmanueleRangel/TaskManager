@@ -11,6 +11,7 @@ namespace TaskManager.API.Controllers
     [ApiController]
     public class TarefasController : ControllerBase
     {
+        //branch de nova arquitetura
         //declarando a interface do repositorio
 
         private ITarefasRepository _tarefasRepository;
