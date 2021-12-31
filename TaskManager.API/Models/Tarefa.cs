@@ -14,9 +14,7 @@ namespace TaskManager.API.Models
         public DateTime DataCadastro { get; private set; }
         public DateTime? DataConclusao { get; private set; }
         
-        public Tarefa()
-        {
-        }
+        public Tarefa() {}
         public void AtualizarTarefa(string nome, string detalhes, bool? concluido = false)
         {
             Nome = nome;
