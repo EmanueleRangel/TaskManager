@@ -4,6 +4,7 @@ using TaskManager.API.Attributes;
 using TaskManager.API.Data.Repositories;
 using TaskManager.API.Models;
 using TaskManager.API.Models.InputModels;
+using TaskManager.API.Services.Tarefas;
 
 namespace TaskManager.API.Controllers
 {
@@ -11,10 +12,10 @@ namespace TaskManager.API.Controllers
     [ApiController]
     public class TarefasController : ControllerBase
     {
-        //branch de nova arquitetura
-        //declarando a interface do repositorio
 
+        private ITarefasService _tarefasService;
         private ITarefasRepository _tarefasRepository;
+        
 
         //construtor passando por uma injeçao de dependencia
         public TarefasController(ITarefasRepository tarefasRepository)
@@ -27,11 +28,9 @@ namespace TaskManager.API.Controllers
         // GET api/tarefas
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Get()
-        {
-            var tarefas = _tarefasRepository.Buscar();
-            return Ok(tarefas);
-        }
+        public async Task<ActionResult<Tarefa>> Get()
+            => await _tarefas.Get();
+     
 
         // GET api/tarefas/{id}
         [HttpGet("{id}")]
