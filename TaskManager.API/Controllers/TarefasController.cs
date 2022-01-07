@@ -49,38 +49,22 @@ namespace TaskManager.API.Controllers
             return Created("", novaTarefa);
         }
 
-        //// PUT api/tarefas/{id}
-        //[HttpPut("{id}")]
-        //[Authorize]
-        //public IActionResult Put([FromRoute] string id, [FromBody] TarefaInputModel tarefaAtualizada)
-        //{
-        //    var tarefa = _tarefasRepository.Buscar(id);
+        // PUT api/tarefas/{id}
+        [HttpPut("{id}")]
+        [AllowAnonymous]
+        public IActionResult Put([FromRoute] string id, [FromBody] TarefaInputModel tarefaAtualizada)
+        {
+            _tarefasService.Put(id, tarefaAtualizada);
+            return Ok(tarefaAtualizada);
+        }
 
-        //    if (tarefa == null)
-        //        return NotFound();
-
-        //    tarefa.AtualizarTarefa(tarefaAtualizada.Nome, tarefaAtualizada.Detalhes, tarefaAtualizada.Concluido);
-
-        //    _tarefasRepository.Atualizar(tarefa);
-
-        //    return Ok(tarefa);
-        //}
-
-        //// DELETE api/tarefas/{id}
-        //[HttpDelete("{id}")]
-        //[Authorize(Roles = "gerente")]
-        //public IActionResult Delete([FromRoute] string id)
-        //{
-        //    var tarefa = _tarefasRepository.Buscar(id);
-
-        //    if (tarefa == null)
-        //        return NotFound();
-
-        //    _tarefasRepository.Remover(tarefa);
-
-        //    return NoContent();
-
-        //    //comentario parte 2
-        //}
+        // DELETE api/tarefas/{id}
+        [HttpDelete("{id}")]
+        [AllowAnonymous]
+        public IActionResult Delete([FromRoute] string id)
+        {
+            _tarefasService.Delete(id);
+           return NoContent();
+        }
     }
 }

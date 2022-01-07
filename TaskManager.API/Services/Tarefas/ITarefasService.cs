@@ -11,5 +11,9 @@ namespace TaskManager.API.Services.Tarefas
         public Tarefa Get(string id);
 
         public void Post(TarefaInputModel novaTarefa);
+
+        public void Put(string id, TarefaInputModel tarefaAtualizada);
+
+        public void Delete(string id);
     }
 }

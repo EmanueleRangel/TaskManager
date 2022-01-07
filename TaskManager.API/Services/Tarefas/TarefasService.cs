@@ -12,7 +12,17 @@ namespace TaskManager.API.Services.Tarefas
         public TarefasService(ITarefasRepository tarefasRepository)
         {
             _tarefasRepository = tarefasRepository;
-        } 
+        }
+
+        public void Delete(string id)
+        {
+            var tarefa = _tarefasRepository.Buscar(id);
+
+            if (tarefa == null)
+                throw new Exception("Tarefa não encontrada");
+
+            _tarefasRepository.Remover(tarefa);
+        }
 
         public IEnumerable<Tarefa> Get()
         {
@@ -36,6 +46,19 @@ namespace TaskManager.API.Services.Tarefas
 
             _tarefasRepository.Adicionar(tarefa);
 
+        }
+
+        public void Put(string id, TarefaInputModel tarefaAtualizada)
+        {
+            var tarefa = _tarefasRepository.Buscar(id);
+
+            if (tarefa == null)
+                throw new Exception("Tarefa não encontrada");
+
+            tarefa.AtualizarTarefa(tarefaAtualizada.Nome, tarefaAtualizada.Detalhes, tarefaAtualizada.Concluido);
+
+            _tarefasRepository.Atualizar(tarefa);
+            
         }
     }
 }
