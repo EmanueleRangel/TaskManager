@@ -14,81 +14,73 @@ namespace TaskManager.API.Controllers
     {
 
         private ITarefasService _tarefasService;
-        private ITarefasRepository _tarefasRepository;
-        
 
-        //construtor passando por uma injeçao de dependencia
-        public TarefasController(ITarefasRepository tarefasRepository)
+
+        public TarefasController(ITarefasService tarefasService)
         {
-            _tarefasRepository = tarefasRepository;
+            _tarefasService = tarefasService;
 
         }
-        // comentario parte 1
 
         // GET api/tarefas
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<Tarefa>> Get()
-            => await _tarefas.Get();
-     
+        public IEnumerable<Tarefa> Get()
+        {
+           return _tarefasService.Get();
+        }
+                 
 
         // GET api/tarefas/{id}
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public IActionResult Get([FromRoute] string id)
+        public Tarefa Get([FromRoute] string id)
         {
-            var tarefa = _tarefasRepository.Buscar(id);
+            return _tarefasService.Get(id);
 
-            if(tarefa == null)
-                return NotFound();
-
-            return Ok(tarefa);
         }
 
         // POST api/tarefas
         [HttpPost]
-        [Authorize]
+        [AllowAnonymous]
         public IActionResult Post([FromBody] TarefaInputModel novaTarefa)
         {
-            var tarefa = new Tarefa(novaTarefa.Nome, novaTarefa.Detalhes);
-
-            _tarefasRepository.Adicionar(tarefa);
-
-            return Created("", tarefa);
+           _tarefasService.Post(novaTarefa);
+            return Created("", novaTarefa);
         }
 
-        // PUT api/tarefas/{id}
-        [HttpPut("{id}")]
-        [Authorize]
-        public IActionResult Put([FromRoute] string id, [FromBody] TarefaInputModel tarefaAtualizada)
-        {
-            var tarefa = _tarefasRepository.Buscar(id);
+        //// PUT api/tarefas/{id}
+        //[HttpPut("{id}")]
+        //[Authorize]
+        //public IActionResult Put([FromRoute] string id, [FromBody] TarefaInputModel tarefaAtualizada)
+        //{
+        //    var tarefa = _tarefasRepository.Buscar(id);
 
-            if (tarefa == null)
-                return NotFound();
+        //    if (tarefa == null)
+        //        return NotFound();
 
-            tarefa.AtualizarTarefa(tarefaAtualizada.Nome, tarefaAtualizada.Detalhes, tarefaAtualizada.Concluido);
+        //    tarefa.AtualizarTarefa(tarefaAtualizada.Nome, tarefaAtualizada.Detalhes, tarefaAtualizada.Concluido);
 
-            _tarefasRepository.Atualizar(tarefa);
+        //    _tarefasRepository.Atualizar(tarefa);
 
-            return Ok(tarefa);
-        }
+        //    return Ok(tarefa);
+        //}
 
-        // DELETE api/tarefas/{id}
-        [HttpDelete("{id}")]
-        [Authorize(Roles = "gerente")]
-        public IActionResult Delete([FromRoute] string id)
-        {
-            var tarefa = _tarefasRepository.Buscar(id);
+        //// DELETE api/tarefas/{id}
+        //[HttpDelete("{id}")]
+        //[Authorize(Roles = "gerente")]
+        //public IActionResult Delete([FromRoute] string id)
+        //{
+        //    var tarefa = _tarefasRepository.Buscar(id);
 
-            if (tarefa == null)
-                return NotFound();
+        //    if (tarefa == null)
+        //        return NotFound();
 
-            _tarefasRepository.Remover(tarefa);
+        //    _tarefasRepository.Remover(tarefa);
 
-            return NoContent();
+        //    return NoContent();
 
-            //comentario parte 2
-        }
+        //    //comentario parte 2
+        //}
     }
 }

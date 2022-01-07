@@ -1,10 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaskManager.API.Models;
+using TaskManager.API.Models.InputModels;
 
 namespace TaskManager.API.Services.Tarefas
 {
     public interface ITarefasService
     {
-        public Task<Tarefa> Get();
+        public IEnumerable<Tarefa> Get();
+
+        public Tarefa Get(string id);
+
+        public void Post(TarefaInputModel novaTarefa);
     }
 }

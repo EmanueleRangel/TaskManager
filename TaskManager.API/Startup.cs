@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using TaskManager.API.Data.Configurations;
 using TaskManager.API.Data.Repositories;
+using TaskManager.API.Services.Tarefas;
 
 namespace TaskManager.API
 {
@@ -27,8 +28,9 @@ namespace TaskManager.API
             services.AddSingleton<IDatabaseConfig>(Configuration.GetSection(nameof(DatabaseConfig)).Get<DatabaseConfig>());
 
             //injeçao de dependencia 
-            services.AddSingleton<ITarefasRepository, TarefasRepositorySQL>();
-            services.AddSingleton<IUsuariosRepository, UsuariosRepositorySQL>();
+            services.AddSingleton<ITarefasRepository, TarefasRepositoryMongo>();
+            services.AddSingleton<IUsuariosRepository, UsuariosRepositoryMongo>();
+            services.AddSingleton<ITarefasService, TarefasService>();
 
 
             services.AddControllers();
