@@ -8,6 +8,7 @@ using System.Text;
 using TaskManager.API.Data.Configurations;
 using TaskManager.API.Data.Repositories;
 using TaskManager.API.Services.Tarefas;
+using TaskManager.API.Services.Usuarios;
 
 namespace TaskManager.API
 {
@@ -31,6 +32,7 @@ namespace TaskManager.API
             services.AddSingleton<ITarefasRepository, TarefasRepositoryMongo>();
             services.AddSingleton<IUsuariosRepository, UsuariosRepositoryMongo>();
             services.AddSingleton<ITarefasService, TarefasService>();
+            services.AddSingleton<IUsuariosService, UsuariosService>();
 
 
             services.AddControllers();

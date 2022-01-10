@@ -5,6 +5,7 @@ using TaskManager.API.Data.Repositories;
 using TaskManager.API.Models;
 using TaskManager.API.Models.InputModels;
 using TaskManager.API.Services;
+using TaskManager.API.Services.Usuarios;
 
 namespace TaskManager.API.Controllers
 {
@@ -12,84 +13,84 @@ namespace TaskManager.API.Controllers
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-        private IUsuariosRepository _usuariosRepository;
+        private IUsuariosService _usuariosService;
 
-        public UsuariosController(IUsuariosRepository usuariosRepository)
+        public UsuariosController(IUsuariosService usuariosService)
         {
-            _usuariosRepository = usuariosRepository;
+            _usuariosService = usuariosService;
         }
 
-        [HttpPost]
-        [Route("login")]
-        [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginInputModel modelo)
-        {
-            var usuario = _usuariosRepository.BuscarUsuarioPorNome(modelo.Nome);
+        //[HttpPost]
+        //[Route("login")]
+        //[AllowAnonymous]
+        //public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginInputModel modelo)
+        //{
+        //    var usuario = _usuariosRepository.BuscarUsuarioPorNome(modelo.Nome);
 
-            bool senhaValida = BCrypt.Net.BCrypt.Verify(modelo.Senha, usuario.Senha);
+        //    bool senhaValida = BCrypt.Net.BCrypt.Verify(modelo.Senha, usuario.Senha);
             
-            if (!senhaValida) 
-                return NotFound(new {message = "Usuário ou senha inválidos"});
+        //    if (!senhaValida) 
+        //        return NotFound(new {message = "Usuário ou senha inválidos"});
 
-            var token = TokenService.GenerateToken(usuario);
+        //    var token = TokenService.GenerateToken(usuario);
 
-            usuario.Senha = "";
+        //    usuario.Senha = "";
 
-            return new
-            {
-                usuario = usuario,
-                token = token
-            };
+        //    return new
+        //    {
+        //        usuario = usuario,
+        //        token = token
+        //    };
 
-        }
+        //}
 
         // GET api/usuarios
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Get()
         {
-            var usuarios = _usuariosRepository.Buscar();
-            return Ok(usuarios);
+            _usuariosService.Get();
+            return Ok();
         }
 
-        // GET api/usuarios/{id}
-        [HttpGet("{id}")]
-        [AllowAnonymous]
-        public IActionResult Get([FromRoute] string id)
-        {
-            var usuario = _usuariosRepository.Buscar(id);
+        //// GET api/usuarios/{id}
+        //[HttpGet("{id}")]
+        //[AllowAnonymous]
+        //public IActionResult Get([FromRoute] string id)
+        //{
+        //    var usuario = _usuariosRepository.Buscar(id);
 
-            if (usuario == null)
-                return NotFound();
+        //    if (usuario == null)
+        //        return NotFound();
 
-            return Ok(usuario);
-        }
+        //    return Ok(usuario);
+        //}
 
-        // POST api/usuarios
-        [HttpPost]
-        [ApiKey]
-        public IActionResult Post([FromBody] UsuarioInputModel novoUsuario)
-        {
-            novoUsuario.Senha = BCrypt.Net.BCrypt.HashPassword(novoUsuario.Senha);
-            var usuario = new Usuario(novoUsuario.Nome, novoUsuario.Senha, novoUsuario.Role);
+        //// POST api/usuarios
+        //[HttpPost]
+        //[ApiKey]
+        //public IActionResult Post([FromBody] UsuarioInputModel novoUsuario)
+        //{
+        //    novoUsuario.Senha = BCrypt.Net.BCrypt.HashPassword(novoUsuario.Senha);
+        //    var usuario = new Usuario(novoUsuario.Nome, novoUsuario.Senha, novoUsuario.Role);
 
-            _usuariosRepository.Adicionar(usuario);
+        //    _usuariosRepository.Adicionar(usuario);
 
-            return Created("", usuario);
-        }
+        //    return Created("", usuario);
+        //}
 
-        // DELETE api/usuarios/{id}
-        [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] string id)
-        {
-            var usuario= _usuariosRepository.Buscar(id);
+        //// DELETE api/usuarios/{id}
+        //[HttpDelete("{id}")]
+        //public IActionResult Delete([FromRoute] string id)
+        //{
+        //    var usuario= _usuariosRepository.Buscar(id);
 
-            if (usuario == null)
-                return NotFound();
+        //    if (usuario == null)
+        //        return NotFound();
 
-            _usuariosRepository.Remover(usuario);
+        //    _usuariosRepository.Remover(usuario);
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
     }
 }
