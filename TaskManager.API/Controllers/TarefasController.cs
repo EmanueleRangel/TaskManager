@@ -42,7 +42,7 @@ namespace TaskManager.API.Controllers
 
         // POST api/tarefas
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Post([FromBody] TarefaInputModel novaTarefa)
         {
            _tarefasService.Post(novaTarefa);
@@ -51,7 +51,7 @@ namespace TaskManager.API.Controllers
 
         // PUT api/tarefas/{id}
         [HttpPut("{id}")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Put([FromRoute] string id, [FromBody] TarefaInputModel tarefaAtualizada)
         {
             _tarefasService.Put(id, tarefaAtualizada);
@@ -60,7 +60,7 @@ namespace TaskManager.API.Controllers
 
         // DELETE api/tarefas/{id}
         [HttpDelete("{id}")]
-        [AllowAnonymous]
+        [Authorize (Roles = "gerente")]
         public IActionResult Delete([FromRoute] string id)
         {
             _tarefasService.Delete(id);
