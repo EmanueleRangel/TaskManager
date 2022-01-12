@@ -47,50 +47,35 @@ namespace TaskManager.API.Controllers
         // GET api/usuarios
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Get()
+        public IEnumerable<Usuario> Get()
         {
-            _usuariosService.Get();
-            return Ok();
+            return _usuariosService.Get();
+            
         }
 
-        //// GET api/usuarios/{id}
-        //[HttpGet("{id}")]
-        //[AllowAnonymous]
-        //public IActionResult Get([FromRoute] string id)
-        //{
-        //    var usuario = _usuariosRepository.Buscar(id);
+        // GET api/usuarios/{id}
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public Usuario Get([FromRoute] string id)
+        {
+            return _usuariosService.Get(id);
+        }
 
-        //    if (usuario == null)
-        //        return NotFound();
+        // POST api/usuarios
+        [HttpPost]
+        [ApiKey]
+        public IActionResult Post([FromBody] UsuarioInputModel novoUsuario)
+        {
+            _usuariosService.Post(novoUsuario);
+            return Created("", novoUsuario);
+        }
 
-        //    return Ok(usuario);
-        //}
-
-        //// POST api/usuarios
-        //[HttpPost]
-        //[ApiKey]
-        //public IActionResult Post([FromBody] UsuarioInputModel novoUsuario)
-        //{
-        //    novoUsuario.Senha = BCrypt.Net.BCrypt.HashPassword(novoUsuario.Senha);
-        //    var usuario = new Usuario(novoUsuario.Nome, novoUsuario.Senha, novoUsuario.Role);
-
-        //    _usuariosRepository.Adicionar(usuario);
-
-        //    return Created("", usuario);
-        //}
-
-        //// DELETE api/usuarios/{id}
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete([FromRoute] string id)
-        //{
-        //    var usuario= _usuariosRepository.Buscar(id);
-
-        //    if (usuario == null)
-        //        return NotFound();
-
-        //    _usuariosRepository.Remover(usuario);
-
-        //    return NoContent();
-        //}
+        // DELETE api/usuarios/{id}
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] string id)
+        {
+           _usuariosService.Delete(id);
+            return NoContent();
+        }
     }
 }
