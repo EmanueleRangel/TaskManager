@@ -1,4 +1,5 @@
-﻿using TaskManager.API.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using TaskManager.API.Models;
 using TaskManager.API.Models.InputModels;
 
 namespace TaskManager.API.Services.Usuarios
@@ -12,6 +13,8 @@ namespace TaskManager.API.Services.Usuarios
         public Usuario Get(string id);
 
         void Delete(string id);
+
+        public Task<ActionResult<dynamic>> Authenticate(LoginInputModel modelo);
 
     }
 }

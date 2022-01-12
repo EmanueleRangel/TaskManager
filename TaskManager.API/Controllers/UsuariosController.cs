@@ -20,37 +20,21 @@ namespace TaskManager.API.Controllers
             _usuariosService = usuariosService;
         }
 
-        //[HttpPost]
-        //[Route("login")]
-        //[AllowAnonymous]
-        //public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginInputModel modelo)
-        //{
-        //    var usuario = _usuariosRepository.BuscarUsuarioPorNome(modelo.Nome);
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+        public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginInputModel modelo)
+        {
+           return await _usuariosService.Authenticate(modelo);
 
-        //    bool senhaValida = BCrypt.Net.BCrypt.Verify(modelo.Senha, usuario.Senha);
-            
-        //    if (!senhaValida) 
-        //        return NotFound(new {message = "Usuário ou senha inválidos"});
-
-        //    var token = TokenService.GenerateToken(usuario);
-
-        //    usuario.Senha = "";
-
-        //    return new
-        //    {
-        //        usuario = usuario,
-        //        token = token
-        //    };
-
-        //}
+        }
 
         // GET api/usuarios
         [HttpGet]
         [AllowAnonymous]
         public IEnumerable<Usuario> Get()
         {
-            return _usuariosService.Get();
-            
+            return _usuariosService.Get();       
         }
 
         // GET api/usuarios/{id}
