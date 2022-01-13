@@ -17,7 +17,7 @@ namespace TaskManager.API.Services.Usuarios
         public async Task<ActionResult<dynamic>> Authenticate(LoginInputModel modelo)
         {
             var usuario = _usuariosRepository.BuscarUsuarioPorNome(modelo.Nome);
-
+             
             bool senhaValida = BCrypt.Net.BCrypt.Verify(modelo.Senha, usuario.Senha);
 
             if (!senhaValida)

@@ -34,7 +34,7 @@ namespace TaskManager.API.Controllers
         [AllowAnonymous]
         public IEnumerable<Usuario> Get()
         {
-            return _usuariosService.Get();       
+            return _usuariosService.Get();
         }
 
         // GET api/usuarios/{id}
