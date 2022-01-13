@@ -11,11 +11,9 @@ namespace TaskManager.API.Controllers
     [ApiController]
     public class TarefasController : ControllerBase
     {
-        //declarando a interface do repositorio
 
         private ITarefasRepository _tarefasRepository;
 
-        //construtor passando por uma injeçao de dependencia
         public TarefasController(ITarefasRepository tarefasRepository)
         {
             _tarefasRepository = tarefasRepository;

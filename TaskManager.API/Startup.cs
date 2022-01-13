@@ -23,10 +23,8 @@ namespace TaskManager.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //instância unica da configuraçao da base de dados
             services.AddSingleton<IDatabaseConfig>(Configuration.GetSection(nameof(DatabaseConfig)).Get<DatabaseConfig>());
 
-            //injeçao de dependencia 
             services.AddSingleton<ITarefasRepository, TarefasRepositorySQL>();
             services.AddSingleton<IUsuariosRepository, UsuariosRepositorySQL>();
 

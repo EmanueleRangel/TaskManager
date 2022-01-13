@@ -25,7 +25,7 @@ namespace TaskManager.API.Models
 
         public Tarefa(string nome, string detalhes)
         {
-            Id = Guid.NewGuid().ToString();//gera um id string
+            Id = Guid.NewGuid().ToString();
             Nome = nome;
             Detalhes = detalhes;
             Concluido = false;
