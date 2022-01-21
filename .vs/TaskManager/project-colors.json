@@ -10,7 +10,12 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Arquivos Diversos",
       "ColorIndex": -1
+    },
+    "7efa70bc-d079-4544-afde-54f917a3377f": {
+      "ProjectGuid": "7efa70bc-d079-4544-afde-54f917a3377f",
+      "DisplayName": "TaskManager.UnitTests",
+      "ColorIndex": 1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 2
 }

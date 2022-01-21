@@ -38,6 +38,44 @@ namespace TaskManager.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
+                var securitySchemeApiKey = new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.ApiKey,
+                    In = ParameterLocation.Header,
+                    Name = "api_key",
+                    Reference = new OpenApiReference
+                    {
+                        Id = "ApiKey",
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                var securitySchemeJWT = new OpenApiSecurityScheme
+                {
+                    Scheme = JwtBearerDefaults.AuthenticationScheme,
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                c.AddSecurityDefinition(securitySchemeApiKey.Reference.Id, securitySchemeApiKey);
+                
+                c.AddSecurityDefinition(securitySchemeJWT.Reference.Id, securitySchemeJWT);
+
+                var securityRequirement = new OpenApiSecurityRequirement
+                {
+                    {securitySchemeApiKey, Array.Empty<string>() },
+                    {securitySchemeJWT, Array.Empty<string>() }
+                };
+
+                c.AddSecurityRequirement(securityRequirement);
+
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TaskManager.API", Version = "v1" });
             });
 
