@@ -40,12 +40,13 @@ namespace TaskManager.API.Services.Tarefas
             return tarefa;
         }
 
-        public void Post(TarefaInputModel novaTarefa)
+        public bool Post(TarefaInputModel novaTarefa)
         {
             var tarefa = new Tarefa(novaTarefa.Nome, novaTarefa.Detalhes);
 
             _tarefasRepository.Adicionar(tarefa);
 
+            return true;
         }
 
         public void Put(string id, TarefaInputModel tarefaAtualizada)

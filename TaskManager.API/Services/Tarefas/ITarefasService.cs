@@ -10,7 +10,7 @@ namespace TaskManager.API.Services.Tarefas
 
         public Tarefa Get(string id);
 
-        public void Post(TarefaInputModel novaTarefa);
+        public bool Post(TarefaInputModel novaTarefa);
 
         public void Put(string id, TarefaInputModel tarefaAtualizada);
 

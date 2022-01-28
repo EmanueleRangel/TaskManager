@@ -60,12 +60,14 @@ namespace TaskManager.API.Services.Usuarios
             return usuario;
         }
 
-        public void Post(UsuarioInputModel novoUsuario)
+        public bool Post(UsuarioInputModel novoUsuario)
         {
             novoUsuario.Senha = BCrypt.Net.BCrypt.HashPassword(novoUsuario.Senha);
             var usuario = new Usuario(novoUsuario.Nome, novoUsuario.Senha, novoUsuario.Role);
 
             _usuariosRepository.Adicionar(usuario);
+
+            return true;
         }
     }
 }

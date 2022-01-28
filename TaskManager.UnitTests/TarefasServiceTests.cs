@@ -38,5 +38,14 @@ namespace TaskManager.UnitTests
             var exception = Assert.Throws<Exception>(() => _tarefasService.Delete(""));
             Assert.Equal("Tarefa não encontrada", exception.Message);
         }
+
+        [Fact]
+
+        public void Post_SendingValidObject()
+        {
+            var result = _tarefasService.Post(new TarefaInputModel { Nome = "Tarefa 1", Detalhes = "ir à academia", Concluido = false });
+            Assert.True(result);
+
+        }
     }
 }

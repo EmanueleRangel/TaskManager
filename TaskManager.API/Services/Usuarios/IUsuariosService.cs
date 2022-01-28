@@ -8,7 +8,7 @@ namespace TaskManager.API.Services.Usuarios
     {
         public IEnumerable<Usuario> Get();
 
-        public void Post(UsuarioInputModel novoUsuario);
+        public bool Post(UsuarioInputModel novoUsuario);
 
         public Usuario Get(string id);
 

@@ -1,5 +1,4 @@
-﻿using Moq;
-using NSubstitute;
+﻿using NSubstitute;
 using System;
 using TaskManager.API.Data.Repositories;
 using TaskManager.API.Models;
@@ -49,6 +48,15 @@ namespace TaskManager.UnitTests
 
             //Assert
             Assert.Equal("Usuário ou senha inválidos", exception.Message);
+        }
+
+        [Fact]
+
+        public void Post_SendingValidObject()
+        {
+
+            var result = _usuariosService.Post(new UsuarioInputModel { Nome = "Manu", Senha = "manu", Role = "gerente" });
+            Assert.True(result);
         }
     }
 }
