@@ -18,14 +18,14 @@ namespace TaskManager.UnitTests
         }
 
         [Fact]
-        public void GetById_SendingEmptyGuid()
+        public void When_GetById_Given_That_Empty_Guid_Informed_Should_Throws_Exception()
         {
             var exception = Assert.Throws<Exception>(() => _tarefasService.Get(""));
             Assert.Equal("Tarefa não encontrada", exception.Message);
         }
 
         [Fact]
-        public void Put_SendingEmptyGuid()
+        public void When_Put_Given_That_Empty_Guid_Informed_Should_Throws_Exception()
         {
             var exception = Assert.Throws<Exception>(() => _tarefasService.Put("", new TarefaInputModel()));
             Assert.Equal("Tarefa não encontrada", exception.Message);
@@ -33,7 +33,7 @@ namespace TaskManager.UnitTests
 
         [Fact]
 
-        public void Delete_SendingEmptyGuid()
+        public void When_Delete_Given_That_Empty_Guid_Informed_Should_Throws_Exception()
         {
             var exception = Assert.Throws<Exception>(() => _tarefasService.Delete(""));
             Assert.Equal("Tarefa não encontrada", exception.Message);
@@ -41,7 +41,7 @@ namespace TaskManager.UnitTests
 
         [Fact]
 
-        public void Post_SendingValidObject()
+        public void When_Post_Given_That_Valid_Objects_Was_Informed_Should_Create_A_New_Task()
         {
             var result = _tarefasService.Post(new TarefaInputModel { Nome = "Tarefa 1", Detalhes = "ir à academia", Concluido = false });
             Assert.True(result);
