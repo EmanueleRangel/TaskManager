@@ -19,12 +19,11 @@ Nela, também a implementação dos testes unitários.
 ## Meus próximos passos:
 - Revisar código para melhorias relacionadas a boas práticas;
 - Implementar Health Checks;
-- 
+
 ## Tecnologias utilizadas:
 
 - C#
 - .NET 6.0
-- VisualStudio
 - MongoDB
 - SQLServer
 - ORM Dapper
