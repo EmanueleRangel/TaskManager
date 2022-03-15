@@ -1,12 +1,13 @@
 ﻿
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using TaskManager.API.Data.Configurations;
 using TaskManager.API.Data.Repositories;
+using TaskManager.API.Health;
 using TaskManager.API.Services.Tarefas;
 using TaskManager.API.Services.Usuarios;
 
@@ -34,6 +35,22 @@ namespace TaskManager.API
             services.AddSingleton<ITarefasService, TarefasService>();
             services.AddSingleton<IUsuariosService, UsuariosService>();
 
+            services.AddHealthChecks()
+                .AddSqlServer(
+                connectionString: Configuration["DatabaseConfig:ConnectionStringSQL"],
+                name:"SQL DB", tags: new string[] { "database", "sql" })
+                .AddMongoDb(
+                mongodbConnectionString: Configuration["DatabaseConfig:ConnectionStringMongo"],
+                name: "MongoDB", tags: new string[] { "database", "nosql", "mongodb" });
+
+
+            services.AddHealthChecksUI(options =>
+            {
+                options.SetEvaluationTimeInSeconds(5);
+                options.MaximumHistoryEntriesPerEndpoint(10);
+                options.AddHealthCheckEndpoint("Infraestrutura", "/health-data-ui");
+            })
+                .AddInMemoryStorage();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -130,8 +147,20 @@ namespace TaskManager.API
                 endpoints.MapControllers();
             });
 
+            app.UseHealthChecks(
+                HealthChecker.Path,
+                new HealthCheckOptions() { ResponseWriter = HealthChecker.WriteHealthResponse}
+                );
 
+            app.UseHealthChecks("/health-data-ui", new HealthCheckOptions
+            {
+                Predicate = p => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
 
+            app.UseHealthChecksUI(options => { options.UIPath = "/monitor"; });
         }
+
     }
 }
+
