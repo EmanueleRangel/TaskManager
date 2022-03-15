@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "DgirQz4I1j0m9CKuRM1iGhkGOzpC52OYGzhbxx6roYw8DtOEWQQW3RBOHxB1VK1yLBgMhEJPxQk5Gqpe71UrNA==",
+  "dgSpecHash": "zI2QCGU3BZCl3GQ7tTFb4FGkQhryrPxGGJOKDGAau3SNPmhXXeAVevvRnRK8DJ/MVf30GPM/J8ftI05TyYPMig==",
   "success": true,
   "projectFilePath": "C:\\Users\\Rangel\\Documents\\GitHub\\TaskManager\\TaskManager.API\\TaskManager.API.csproj",
   "expectedPackageFiles": [
@@ -170,7 +170,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "O pacote 'BCrypt.Net 0.1.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' em vez da estrutura de destino do projeto 'net6.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
       "libraryId": "BCrypt.Net",
       "targetGraphs": [
         "net6.0"
