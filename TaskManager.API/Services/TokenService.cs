@@ -17,7 +17,7 @@ namespace TaskManager.API.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, usuario.Nome.ToString()),
+                    new Claim(ClaimTypes.Name, usuario.Name.ToString()),
                     new Claim(ClaimTypes.Role, usuario.Role.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),

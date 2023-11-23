@@ -2,8 +2,8 @@
 {
     public class TarefaInputModel
     {
-        public string Nome { get;  set; }
-        public string Detalhes { get;  set; }
-        public bool? Concluido { get;  set; }
+        public string Name { get;  set; }
+        public string Details { get;  set; }
+        public bool? Done { get;  set; }
     }
 }

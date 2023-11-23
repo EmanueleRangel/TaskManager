@@ -3,11 +3,11 @@ using TaskManager.API.Models.Persist;
 
 namespace TaskManager.API.Models
 {
-    [Table("Usuario")]
+    [Table("TaskManagerUser")]
     public class Usuario : Entity
     {
-        public string Nome { get; set; }
-        public string Senha { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
         public string Role { get; set; }
 
         public Usuario() {}
@@ -15,8 +15,8 @@ namespace TaskManager.API.Models
         public Usuario(string nome, string senha, string role)
         {
             Id = Guid.NewGuid().ToString();
-            Nome = nome;
-            Senha = senha;
+            Name = nome;
+            Password = senha;
             Role = role;
         }
     }

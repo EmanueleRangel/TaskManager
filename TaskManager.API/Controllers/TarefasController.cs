@@ -45,10 +45,10 @@ namespace TaskManager.API.Controllers
 
         // POST api/tarefas
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public IActionResult Post([FromBody] TarefaInputModel novaTarefa)
         {
-            var tarefa = new Tarefa(novaTarefa.Nome, novaTarefa.Detalhes);
+            var tarefa = new Tarefa(novaTarefa.Name, novaTarefa.Details);
 
             _tarefasRepository.Adicionar(tarefa);
 
@@ -57,7 +57,7 @@ namespace TaskManager.API.Controllers
 
         // PUT api/tarefas/{id}
         [HttpPut("{id}")]
-        [Authorize]
+        //[Authorize]
         public IActionResult Put([FromRoute] string id, [FromBody] TarefaInputModel tarefaAtualizada)
         {
             var tarefa = _tarefasRepository.Buscar(id);
@@ -65,7 +65,7 @@ namespace TaskManager.API.Controllers
             if (tarefa == null)
                 return NotFound();
 
-            tarefa.AtualizarTarefa(tarefaAtualizada.Nome, tarefaAtualizada.Detalhes, tarefaAtualizada.Concluido);
+            tarefa.AtualizarTarefa(tarefaAtualizada.Name, tarefaAtualizada.Details, tarefaAtualizada.Done);
 
             _tarefasRepository.Atualizar(tarefa);
 
@@ -74,7 +74,7 @@ namespace TaskManager.API.Controllers
 
         // DELETE api/tarefas/{id}
         [HttpDelete("{id}")]
-        [Authorize(Roles = "gerente")]
+        //[Authorize(Roles = "gerente")]
         public IActionResult Delete([FromRoute] string id)
         {
             var tarefa = _tarefasRepository.Buscar(id);

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rangel\\Documents\\GitHub\\TaskManager\\TaskManager.API\\TaskManager.API.csproj": {}
+    "C:\\Users\\e.dos.santos.franca\\TaskManager\\TaskManager.API\\TaskManager.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rangel\\Documents\\GitHub\\TaskManager\\TaskManager.API\\TaskManager.API.csproj": {
+    "C:\\Users\\e.dos.santos.franca\\TaskManager\\TaskManager.API\\TaskManager.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rangel\\Documents\\GitHub\\TaskManager\\TaskManager.API\\TaskManager.API.csproj",
+        "projectUniqueName": "C:\\Users\\e.dos.santos.franca\\TaskManager\\TaskManager.API\\TaskManager.API.csproj",
         "projectName": "TaskManager.API",
-        "projectPath": "C:\\Users\\Rangel\\Documents\\GitHub\\TaskManager\\TaskManager.API\\TaskManager.API.csproj",
-        "packagesPath": "C:\\Users\\Rangel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rangel\\Documents\\GitHub\\TaskManager\\TaskManager.API\\obj\\",
+        "projectPath": "C:\\Users\\e.dos.santos.franca\\TaskManager\\TaskManager.API\\TaskManager.API.csproj",
+        "packagesPath": "C:\\Users\\e.dos.santos.franca\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\e.dos.santos.franca\\TaskManager\\TaskManager.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Rangel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\e.dos.santos.franca\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,9 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://azuldevops.pkgs.visualstudio.com/_packaging/AzulNuget/nuget/v3/index.json": {},
+          "https://azuldevops.pkgs.visualstudio.com/_packaging/azulframework/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -89,10 +91,29 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.24, 6.0.24]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.24, 6.0.24]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.24, 6.0.24]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.24, 6.0.24]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -101,7 +122,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
